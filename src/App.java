@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
         // fazer conexão http e buscar os top 250 filmes
         String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java-2-api/main/TopMovies.json";
         URI endereco = URI.create(url);
@@ -17,7 +16,7 @@ public class App {
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
         String body = response.body();
 
-        System.out.println(body);
+        //System.out.println(body);
 
         // extrair os dados que são necessários (titulo, poster, classificação)
         JsonParser parser = new JsonParser();
@@ -25,9 +24,15 @@ public class App {
 
         // exibir e manipular os dados
         for(Map<String,String> filme: listaDeFilmes) {
-            System.out.println(filme.get("title"));
-            System.out.println(filme.get("image"));
-            System.out.println(filme.get("imDbRating"));
+            System.out.println("\u001b[1mTítulo: \u001b[m" + filme.get("title"));
+
+            int rating = (int)Double.parseDouble(filme.get("imDbRating"));
+            for(int i = 0; i < rating; i++) {
+                System.out.print("⭐");
+            }
+            System.out.println();
+            System.out.println("\u001b[1mClassificação: \u001b[m" + filme.get("imDbRating"));
+            System.out.println("\u001b[1mURL do poster: \u001b[m" + filme.get("image"));
             System.out.println();
         }
 
