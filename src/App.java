@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
@@ -26,6 +27,8 @@ public class App {
         
         GeradorDeFigurinhas geradorDeFigurinhas = new GeradorDeFigurinhas();
         InputStream inputStream;
+        File diretorio = new File("saida");
+        diretorio.mkdir();
         // exibir e manipular os dados
         for(Map<String,String> filme: listaDeFilmes) {
             String titulo = filme.get("title");
@@ -43,7 +46,7 @@ public class App {
             System.out.println();
 
             inputStream = new URL(urlImagem).openStream();
-            titulo += ".png";
+            titulo = "./" + diretorio.getName() + "/" + titulo + ".png";
             geradorDeFigurinhas.gerarImagem(inputStream, titulo.replace(":", ""));
         }
 
